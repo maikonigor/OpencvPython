@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #######################################################
 #     Detecção de Placas atraves de contornos         #
 #                       by AY7                        #
@@ -5,7 +6,7 @@
 
 from PIL import Image
 import numpy as np
-import tkinter
+# import tkinter
 import pytesseract
 import cv2
 
@@ -22,7 +23,7 @@ def desenhaContornos(contornos, imagem):
                 (x, y, a, l) = cv2.boundingRect(c)
                 cv2.rectangle(imagem, (x, y), (x + a, y + l), (0, 255, 0), 2)
                 roi = imagem[y:y + l, x:x + a]
-                cv2.imwrite("C:/Tesseract-OCR/Saidas/roi.jpg", roi)
+                cv2.imwrite("demo/roi.jpg", roi)
 
     return imagem
 
@@ -51,10 +52,12 @@ def reconhecimentoOCR(path_img):
     imagem = Image.open(path_img + "-ocr.jpg")
     saida = pytesseract.image_to_string(imagem, lang='eng')
     print(saida)
+    
     texto = removerChars(saida)
-    janela = tkinter.Tk()
-    tkinter.Label(janela, text=texto, font=("Helvetica", 50)).pack()
-    janela.mainloop()
+    print(texto)
+#     janela = tkinter.Tk()
+#     tkinter.Label(janela, text=texto, font=("Helvetica", 50)).pack()
+#     janela.mainloop()
 
     # cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -65,8 +68,8 @@ def removerChars(self, text):
         text = text.replace(x, '')
     return text
 
-video = cv2.VideoCapture('resource\\video1-720p-edit2.mp4')
-
+# video = cv2.VideoCapture('resource\\video1-720p-edit2.mp4')
+video = cv2.VideoCapture(0)
 while True:
 
     ret, frame = video.read()
@@ -102,7 +105,7 @@ while True:
     if cv2.waitKey(1) == ord('q'):
         break
 
-reconhecimentoOCR("C:/Tesseract-OCR/Saidas/roi")
+reconhecimentoOCR("demo/roi")
 
 video.release()
 cv2.destroyAllWindows()

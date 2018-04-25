@@ -5,7 +5,7 @@
 
 from PIL import Image
 import numpy as np
-import tkinter
+# import tkinter
 import pytesseract
 import cv2
 
@@ -67,9 +67,10 @@ def reconhecimentoOCR(path_img):
     else:
         texto = "Reconhecimento Falho"
 
-    janela = tkinter.Tk()
-    tkinter.Label(janela, text=texto, font=("Helvetica", 50)).pack()
-    janela.mainloop()
+    print(texto)
+#     janela = tkinter.Tk()
+#     tkinter.Label(janela, text=texto, font=("Helvetica", 50)).pack()
+#     janela.mainloop()
 
 def removerChars(text):
     str = "!@#%¨&*()_+:;><^^}{`?|~¬\/=,.'ºª»‘"

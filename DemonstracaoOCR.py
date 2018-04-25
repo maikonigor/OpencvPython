@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from PIL import Image
 import pytesseract
 import cv2
@@ -8,7 +9,8 @@ def removerChars(text):
         text = text.replace(x, '')
     return text
 
-video = cv2.VideoCapture(1)
+video = cv2.VideoCapture(0)
+# video = cv2.VideoCapture('resource/video.mp4')
 
 while True:
 
@@ -37,17 +39,17 @@ while True:
     # limite vertical2
     cv2.line(frame, (470, 0), (470, 480), (0, 0, 255), 1)
 
-    cv2.imwrite("C:/Tesseract-OCR/demo/roi.jpg", result)
-
-    imagem = Image.open("C:/Tesseract-OCR/demo/roi.jpg")
+    cv2.imwrite("demo/roi.jpg", result)
+    cv2.imshow("image",result)
+    
+    imagem = Image.open("./demo/roi.jpg")
     saida = pytesseract.image_to_string(imagem, lang='eng')
     txt = removerChars(saida)
-
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(frame, txt, (180, 50), font, 2, (255, 255, 255), 2, cv2.LINE_AA)
 
-    cv2.imshow('FRAME', frame)
 
+    cv2.imshow('FRAME', frame)
     key = cv2.waitKey(1)
     if key == 27:
         break
